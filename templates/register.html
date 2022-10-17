@@ -1,0 +1,29 @@
+{% load widget_tweaks%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    {% if request.user.is_authenticated%}
+    <h1>Logged in as {{request.user.username}}</h1>
+    {% else %}
+    <form method="post">
+      {% csrf_token %} 
+      {% for field in registration_form %}
+      <br>
+        {{ field.label }}
+        {% render_field field %} 
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        <br>
+      {% endfor %} 
+      {% for field in login_form.non_field_errors %}
+        <p style="color: red">{{ field }}</p>
+      {% endfor %}
+      <input type="submit" value="signin"/>
+    </form>
+    {% endif %}
+  </body>
+</html>

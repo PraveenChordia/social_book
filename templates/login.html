@@ -1,0 +1,25 @@
+{%load widget_tweaks%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %} 
+      {% for field in login_form %}
+      <br>
+        {{ field.label }}
+        {% render_field field %} 
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      <br>
+      {% endfor %} 
+      {% for field in login_form.non_field_errors %}
+        <p style="color: red">{{ field }}</p>
+      {% endfor %}
+      <input type="submit" value="login" />
+    </form>
+  </body>
+</html>
